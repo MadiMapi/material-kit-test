@@ -1,24 +1,21 @@
 import React from "react";
-import Thumbnail from "../Thumbnail";
-import { Container, Row, Col } from "../Grid";
+import GridContainer from "../../../components/Grid/GridContainer.jsx";
+import GridItem from "../../../components/Grid/GridItem.jsx";
+import { GridList } from "@material-ui/core";
 
-// RecipeListItem renders a bootstrap list item containing data from the recipe api call
-export const RecipeListItem = props => (
-    <li className="list-group-item">
-        <Container>
-            <Row>
-                <Col size="xs-4 sm-2">
-                    <Thumbnail src={props.thumbnail || "https://placehold.it/300x300"} />
-                </Col>
-                <Col size="xs-8 sm-9">
-                    <h3>{props.title}</h3>
-                    <p>Ingredients: {props.ingredients}</p>
-                    <p>Time: {props.time} minutes</p>
-                    {/* <a rel="noreferrer noopener" target="_blank" href={props.href}>
-            Go to recipe!
-          </a> */}
-                </Col>
-            </Row>
-        </Container>
-    </li>
+const RecipeListItem = props => (
+    <GridContainer>
+      <GridItem xs={12} sm={12} md={4}>
+        <img src={props.thumbnail || "https:/placehold.it/300x300"} />
+      </GridItem>
+      <GridItem xs={12} sm={12} md={4}>
+        <h3>{props.title}</h3>
+        <p>Ingredients: {props.ingredients}</p>
+        <p>Time: {props.time} minutes</p>
+      </GridItem>
+    </GridContainer>
+
 );
+
+export default RecipeListItem;
+
