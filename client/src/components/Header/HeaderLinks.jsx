@@ -22,41 +22,112 @@ function HeaderLinks({ ...props }) {
   const { classes } = props;
   return (
     <List className={classes.list}>
-      <ListItem className={classes.listItem}>
+
+    <ListItem className={classes.listItem}>
         <Tooltip
-          id="instagram-twitter"
-          title="Take a look at our repo"
-          placement={window.innerWidth > 959 ? "top" : "left"}
+          id="landing"
+          title="Home"
+          placement={window.innerWidth > 959 ? "top" : "right"}
           classes={{ tooltip: classes.tooltip }}
         >
           <Button
-            href="https://github.com/MadiMapi/casual-chef"
-            target="_blank"
             color="transparent"
+            href="/landing-page"
             className={classes.navLink}
           >
-            <i className={classes.socialIcons + " fab fa-github"} />
+            <i className={classes.socialIcons + " fa fa-home"} />
           </Button>
         </Tooltip>
       </ListItem>
-      {/* <ListItem className={classes.listItem}>
+
+      <ListItem className={classes.listItem}>
         <Tooltip
-          id="instagram-facebook"
-          title="Follow us on facebook"
+          id="login"
+          title="Login"
           placement={window.innerWidth > 959 ? "top" : "left"}
           classes={{ tooltip: classes.tooltip }}
         >
           <Button
             color="transparent"
-            href="https://www.facebook.com/CreativeTim"
-            target="_blank"
+            href="/login-page"
             className={classes.navLink}
           >
-            <i className={classes.socialIcons + " fab fa-facebook"} />
+            <i className={classes.socialIcons + " fa fa-user-circle"} />
           </Button>
         </Tooltip>
-      </ListItem> */}
+      </ListItem>
+
+      <ListItem className={classes.listItem}>
+        <Tooltip
+          id="signup"
+          title="Sign Up"
+          placement={window.innerWidth > 959 ? "top" : "left"}
+          classes={{ tooltip: classes.tooltip }}
+        >
+          <Button
+            color="transparent"
+            href="/login-page"
+            className={classes.navLink}
+          >
+            <i className={classes.socialIcons + " fa fa-edit"} />
+          </Button>
+        </Tooltip>
+      </ListItem>
+
+      <ListItem className={classes.listItem}>
+        <Tooltip
+          id="recipes"
+          title="Search Recipes"
+          placement={window.innerWidth > 959 ? "top" : "right"}
+          classes={{ tooltip: classes.tooltip }}
+        >
+          <Button
+            href="/recipes"
+            color="transparent"
+            className={classes.navLink}
+          >
+            <i className={classes.socialIcons + " fas fa-utensils"} />
+          </Button>
+        </Tooltip>
+      </ListItem>
+
+      <ListItem className={classes.listItem}>
+        <Tooltip
+          id="profile"
+          title="Profile"
+          placement={window.innerWidth > 959 ? "top" : "right"}
+          classes={{ tooltip: classes.tooltip }}
+        >
+          <Button
+            href="/profile-page"
+            color="transparent"
+            className={classes.navLink}
+          >
+            <i className={classes.socialIcons + " far fa-bookmark"} />
+          </Button>
+        </Tooltip>
+      </ListItem>
+
     </List>
+
+    <ListItem className={classes.listItem}>
+      <Tooltip
+        id="github"
+        title="Take a look at our repo"
+        placement={window.innerWidth > 959 ? "top" : "left"}
+        classes={{ tooltip: classes.tooltip }}
+      >
+        <Button
+          href="https://github.com/MadiMapi/casual-chef"
+          target="_blank"
+          color="transparent"
+          className={classes.navLink}
+        >
+          <i className={classes.socialIcons + " fab fa-github"} />
+        </Button>
+      </Tooltip>
+    </ListItem>
+
   );
 }
 

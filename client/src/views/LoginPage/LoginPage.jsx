@@ -23,6 +23,7 @@ import loginPageStyle from "../../assets/jss/material-kit-react/views/loginPage.
 
 import image from "../../assets/img/food.jpg";
 
+
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
@@ -45,10 +46,10 @@ class LoginPage extends React.Component {
     return (
       <div>
         <Header
-          absolute
           color="transparent"
-          brand="Material Kit React"
+          brand="Casual Chef"
           rightLinks={<HeaderLinks />}
+          fixed
           {...rest}
         />
         <div
