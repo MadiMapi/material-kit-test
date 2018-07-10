@@ -107,26 +107,24 @@ function HeaderLinks({ ...props }) {
           </Button>
         </Tooltip>
       </ListItem>
-
-    </List>
-
-    <ListItem className={classes.listItem}>
-      <Tooltip
-        id="github"
-        title="Take a look at our repo"
-        placement={window.innerWidth > 959 ? "top" : "left"}
-        classes={{ tooltip: classes.tooltip }}
-      >
-        <Button
-          href="https://github.com/MadiMapi/casual-chef"
-          target="_blank"
-          color="transparent"
-          className={classes.navLink}
+      <ListItem className={classes.listItem}>
+        <Tooltip
+          id="github"
+          title="Take a look at our repo"
+          placement={window.innerWidth > 959 ? "top" : "left"}
+          classes={{ tooltip: classes.tooltip }}
         >
-          <i className={classes.socialIcons + " fab fa-github"} />
-        </Button>
-      </Tooltip>
-    </ListItem>
+          <Button
+            href="https://github.com/MadiMapi/casual-chef"
+            target="_blank"
+            color="transparent"
+            className={classes.navLink}
+          >
+            <i className={classes.socialIcons + " fab fa-github"} />
+          </Button>
+        </Tooltip>
+      </ListItem>
+    </List>
 
   );
 }
