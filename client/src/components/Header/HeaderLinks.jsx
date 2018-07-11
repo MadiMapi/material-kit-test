@@ -66,7 +66,7 @@ function HeaderLinks({ ...props }) {
         >
           <Button
             color="transparent"
-            href="/login-page"
+            href="/signup-page"
             className={classes.navLink}
           >
             <i className={classes.socialIcons + " fa fa-edit"} />
