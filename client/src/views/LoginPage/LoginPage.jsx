@@ -16,8 +16,8 @@ import CardFooter from "../../components/Card/CardFooter.jsx";
 import loginPageStyle from "../../assets/jss/material-kit-react/views/loginPage.jsx";
 
 import image from "../../assets/img/food.jpg";
-import { auth, fire } from "../../base";
-import { Link } from "react-router-dom";
+import { fire } from "../../base";
+import { Link, Redirect, Switch, Route } from "react-router-dom";
 import Input from "@material-ui/core/Input";
 import FormControl from "@material-ui/core/FormControl";
 import IconButton from "@material-ui/core/IconButton";
@@ -26,6 +26,7 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import classNames from "classnames";
 import Button from "@material-ui/core/Button";
+import RecipePage from "../RecipePage/RecipePage";
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -50,8 +51,12 @@ class LoginPage extends React.Component {
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then((u) => {
-        console.log(u);
-      }).catch((error) => {
+                     console.log(u);
+        <Switch>
+          <Redirect from='/login-page' to='/recipes' />
+          <Route path='/recipes' component={RecipePage} />
+        </Switch>
+                   }).catch((error) => {
         console.log(error);
       });
   };
@@ -72,6 +77,11 @@ class LoginPage extends React.Component {
       700
     );
   }
+
+//   <Redirect to={{
+//   pathname: '/login',
+//   state: { from: props.location }
+// }} />
   render() {
     const { classes, ...rest } = this.props;
     return (
