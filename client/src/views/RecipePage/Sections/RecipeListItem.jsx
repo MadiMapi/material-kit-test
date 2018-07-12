@@ -1,12 +1,11 @@
 import React from "react";
 import GridContainer from "../../../components/Grid/GridContainer.jsx";
 import GridItem from "../../../components/Grid/GridItem.jsx";
-import { GridList } from "@material-ui/core";
 
 const RecipeListItem = props => (
     <GridContainer>
       <GridItem xs={12} sm={12} md={4}>
-        <img src={props.thumbnail || "https:/placehold.it/300x300"} />
+        <img alt={props.title} src={props.thumbnail || "https:/placehold.it/300x300"} />
       </GridItem>
       <GridItem xs={12} sm={12} md={4}>
         <h3>{props.title}</h3>

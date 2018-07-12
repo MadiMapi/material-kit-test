@@ -1,37 +1,46 @@
-import Components from "../views/Components/Components.jsx";
 import LandingPage from "../views/LandingPage/LandingPage.jsx";
 import ProfilePage from "../views/ProfilePage/ProfilePage.jsx";
 import LoginPage from "../views/LoginPage/LoginPage.jsx";
 import RecipePage from "../views/RecipePage/RecipePage.jsx";
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  Switch,
+  withRouter,
+  Link,
+  Redirect
+} from "react-router-dom";
 import PrivateRoute from "../PrivateRoute";
-import firebase from "../base";
 import SignupPage from "../views/SignupPage/SignupPage";
+import { fire, auth } from "../base";
 
 class Router extends React.Component {
-  state = {
-    loading: true,
-    authenticated: false,
-    user: null
-  };
-  componentWillMount() {
-    firebase.auth().onAuthStateChanged(user => {
+  constructor() {
+    super();
+    this.state = {
+      user: null
+    };
+    this.authListener = this.authListener.bind(this);
+  }
+
+  componentDidMount() {
+    this.authListener();
+  }
+
+  authListener() {
+    fire.auth().onAuthStateChanged(user => {
       if (user) {
-        this.setState({
-          authenticated: true,
-          currentUser: user,
-          loading: false
-        });
+        this.setState({ user });
+        localStorage.setItem("user", user.uid);
+        <Redirect to={"/recipes"} />;
       } else {
-        this.setState({
-          authenticated: false,
-          currentUser: null,
-          loading: false
-        });
+        this.setState({ user: null });
+        localStorage.removeItem("user");
       }
     });
   }
+
   render() {
     return (
       <BrowserRouter>
@@ -40,17 +49,8 @@ class Router extends React.Component {
           <Route exact path="/login-page" component={LoginPage} />
           <Route exact path="/signup-page" component={SignupPage} />
           <Route exact path="/landing-page" component={LandingPage} />
-          <PrivateRoute
-            path="/recipes"
-            component={RecipePage}
-            authenticated={this.state.authenticated}
-          />
-          <PrivateRoute
-          path="/profile-page"
-          component={ProfilePage}
-          authenticated={this.state.authenticated}
-          />
-          {/* <Route component={NotFound} /> */}
+          <Route path="/recipes" component={RecipePage} />
+          <Route path="/profile-page" component={ProfilePage} />
         </Switch>
       </BrowserRouter>
     );
