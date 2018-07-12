@@ -16,8 +16,8 @@ import CardFooter from "../../components/Card/CardFooter.jsx";
 import loginPageStyle from "../../assets/jss/material-kit-react/views/loginPage.jsx";
 
 import image from "../../assets/img/food.jpg";
-import {auth} from "../../base";
-import {Link} from "react-router-dom";
+import { auth, fire } from "../../base";
+import { Link } from "react-router-dom";
 import Input from "@material-ui/core/Input";
 import FormControl from "@material-ui/core/FormControl";
 import IconButton from "@material-ui/core/IconButton";
@@ -26,7 +26,6 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import classNames from "classnames";
 import Button from "@material-ui/core/Button";
-
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -47,10 +46,12 @@ class LoginPage extends React.Component {
 
   login = e => {
     e.preventDefault();
-    auth
+    fire
+      .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => { })
-      .catch(error => {
+      .then((u) => {
+        console.log(u);
+      }).catch((error) => {
         console.log(error);
       });
   };
@@ -94,7 +95,7 @@ class LoginPage extends React.Component {
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={4}>
                 <Card className={classes[this.state.cardAnimaton]}>
-                  <form className={classes.form}>
+                  <form className={classes.form} onSubmit={this.login}>
                     <CardBody>
                       <FormControl
                         className={classNames(
@@ -147,12 +148,8 @@ class LoginPage extends React.Component {
                       </FormControl>
                     </CardBody>
                     <CardFooter className={classes.cardFooter}>
-                      <Button
-                        type="submit"
-                        onSubmit={this.login}
-                        color="primary"
-                      >
-                        Let's Get Started
+                      <Button type="submit" color="primary">
+                        Log In
                       </Button>
                     </CardFooter>
                     <p className={classes.divider}>

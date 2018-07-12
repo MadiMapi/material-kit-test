@@ -1,4 +1,3 @@
-import Components from "../views/Components/Components.jsx";
 import LandingPage from "../views/LandingPage/LandingPage.jsx";
 import ProfilePage from "../views/ProfilePage/ProfilePage.jsx";
 import LoginPage from "../views/LoginPage/LoginPage.jsx";
@@ -6,7 +5,6 @@ import RecipePage from "../views/RecipePage/RecipePage.jsx";
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import PrivateRoute from "../PrivateRoute";
-import firebase from "../base";
 import SignupPage from "../views/SignupPage/SignupPage";
 import {fire, auth }from "../base";
 
@@ -25,7 +23,6 @@ class Router extends React.Component {
 
   authListener() {
     auth.onAuthStateChanged((user) => {
-      console.log(user);
       if (user) {
         this.setState({ user });
         localStorage.setItem('user', user.uid);
