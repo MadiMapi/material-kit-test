@@ -8,30 +8,34 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import PrivateRoute from "../PrivateRoute";
 import firebase from "../base";
 import SignupPage from "../views/SignupPage/SignupPage";
+import fire from "../base";
 
 class Router extends React.Component {
-  state = {
-    loading: true,
-    authenticated: false,
-    user: null
-  };
-  componentWillMount() {
-    firebase.auth().onAuthStateChanged(user => {
+  constructor() {
+    super();
+    this.state = ({
+      user: null,
+    });
+    this.authListener = this.authListener.bind(this);
+  }
+
+  componentDidMount() {
+    this.authListener();
+  }
+
+  authListener() {
+    fire.auth().onAuthStateChanged((user) => {
+      console.log(user);
       if (user) {
-        this.setState({
-          authenticated: true,
-          currentUser: user,
-          loading: false
-        });
+        this.setState({ user });
+        localStorage.setItem('user', user.uid);
       } else {
-        this.setState({
-          authenticated: false,
-          currentUser: null,
-          loading: false
-        });
+        this.setState({ user: null });
+        localStorage.removeItem('user');
       }
     });
   }
+
   render() {
     return (
       <BrowserRouter>
@@ -43,12 +47,12 @@ class Router extends React.Component {
           <PrivateRoute
             path="/recipes"
             component={RecipePage}
-            authenticated={this.state.authenticated}
-          />
+            authenticated={this.state.user}
+          ></PrivateRoute>
           <PrivateRoute
           path="/profile-page"
           component={ProfilePage}
-          authenticated={this.state.authenticated}
+          authenticated={this.state.user}
           />
           {/* <Route component={NotFound} /> */}
         </Switch>

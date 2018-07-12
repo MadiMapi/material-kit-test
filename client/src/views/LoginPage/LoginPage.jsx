@@ -22,16 +22,44 @@ import CustomInput from "../../components/CustomInput/CustomInput.jsx";
 import loginPageStyle from "../../assets/jss/material-kit-react/views/loginPage.jsx";
 
 import image from "../../assets/img/food.jpg";
+import fire from "../../base";
+import {Link} from "react-router-dom";
 
 
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
+    this.login = this.login.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.signup = this.signup.bind(this);
     // we use this to make the card to appear after the page has been rendered
     this.state = {
-      cardAnimaton: "cardHidden"
+      cardAnimaton: "cardHidden",
+      email: '',
+      password: ''
     };
   }
+  handleChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  login(e) {
+    e.preventDefault();
+    fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
+  signup(e) {
+    e.preventDefault();
+    fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
+    }).then((u) => { console.log(u) })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
+
   componentDidMount() {
     // we add a hidden class to the card and after 700 ms we delete it and the transition appears
     setTimeout(
@@ -52,20 +80,35 @@ class LoginPage extends React.Component {
                 <Card className={classes[this.state.cardAnimaton]}>
                   <form className={classes.form}>
                     <CardBody>
-                      <CustomInput labelText="Email..." id="email" formControlProps={{ fullWidth: true }} inputProps={{ type: "email", endAdornment: <InputAdornment position="end">
+                      <CustomInput 
+                      value={this.state.email}
+                      onChange={this.handleChange}
+                      labelText="Email..." 
+                      id="email" formControlProps={{ fullWidth: true }} 
+                      inputProps={{ type: "email", endAdornment: 
+                      <InputAdornment position="end">
                               <Email className={classes.inputIconsColor} />
                             </InputAdornment> }} />
-                      <CustomInput labelText="Password" id="pass" formControlProps={{ fullWidth: true }} inputProps={{ type: "password", endAdornment: <InputAdornment position="end">
+                      <CustomInput 
+                      value={this.state.password}
+                      onChange={this.handleChange}
+                      labelText="Password" 
+                      id="pass" f
+                      ormControlProps={{ fullWidth: true }} inputProps={{ type: "password", endAdornment: <InputAdornment position="end">
                               <LockOutline className={classes.inputIconsColor} />
                             </InputAdornment> }} />
                     </CardBody>
                     <CardFooter className={classes.cardFooter}>
-                      <Button simple color="primary" size="lg">
+                      <Button 
+                      type="submit"
+                      onClick={this.login}
+                      simple color="primary" 
+                      size="lg">
                         Log In
                       </Button>
                     </CardFooter>
                     <p className={classes.divider}>
-                      Not a member yet? Sign up here
+                      Not a member yet? Sign up <Link to='/signup-page'>here</Link>
                     </p>
                   </form>
                 </Card>
