@@ -9,11 +9,9 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Header from "../../components/Header/Header.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
 import Button from "../../components/CustomButtons/Button.jsx";
-import CustomInput from "../../components/CustomInput/CustomInput.jsx";
 import GridContainer from "../../components/Grid/GridContainer.jsx";
 import GridItem from "../../components/Grid/GridItem.jsx";
 import HeaderLinks from "../../components/Header/HeaderLinks.jsx";
-import NavPills from "../../components/NavPills/NavPills.jsx";
 import Parallax from "../../components/Parallax/Parallax.jsx";
 import RecipeList from "./Sections/RecipeList.jsx";
 import RecipeListItem from "./Sections/RecipeListItem.jsx";
@@ -53,7 +51,6 @@ class RecipePage extends React.Component {
       classes.imgRoundedCircle,
       classes.imgFluid
     );
-    const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
     return (
       <div>
         <Header

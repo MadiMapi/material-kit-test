@@ -8,7 +8,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import PrivateRoute from "../PrivateRoute";
 import firebase from "../base";
 import SignupPage from "../views/SignupPage/SignupPage";
-import fire from "../base";
+import {fire, auth }from "../base";
 
 class Router extends React.Component {
   constructor() {
@@ -24,7 +24,7 @@ class Router extends React.Component {
   }
 
   authListener() {
-    fire.auth().onAuthStateChanged((user) => {
+    auth.onAuthStateChanged((user) => {
       console.log(user);
       if (user) {
         this.setState({ user });
