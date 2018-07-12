@@ -3,6 +3,7 @@ import axios from "axios";
 // The getRecipes method retrieves recipes from the server
 // It accepts a "query" or term to search the recipe api for
 export default {
+
   getRecipes: function (query) {
     return axios.get("http://api.yummly.com/v1/api/recipes", {
       params: {
@@ -12,5 +13,21 @@ export default {
         requirePictures: true
       }
     });
+  },
+  getRec: function() {
+    return axios.get("/api/recipes");
+  },
+  // Gets the book with the given id
+  getRecipe: function(id) {
+    return axios.get("/api/recipes/" + id);
+  },
+  // Deletes the book with the given id
+  deleteRecipe: function(id) {
+    return axios.delete("/api/recipes/" + id);
+  },
+  // Saves a book to the database
+  saveRecipe: function(bookData) {
+    return axios.post("/api/recipes", recipeData);
   }
+
 };

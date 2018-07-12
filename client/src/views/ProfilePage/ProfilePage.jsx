@@ -16,6 +16,12 @@ import GridItem from "../../components/Grid/GridItem.jsx";
 import HeaderLinks from "../../components/Header/HeaderLinks.jsx";
 import NavPills from "../../components/NavPills/NavPills.jsx";
 import Parallax from "../../components/Parallax/Parallax.jsx";
+//mongo components
+import { List, ListItem } from "../../components/List";
+import { Input, TextArea, FormBtn } from "../../components/Form";
+import DeleteBtn from "../../components/DeleteBtn";
+import Jumbotron from "../../components/Jumbotron";
+import { Col, Row, Container } from "../../components/Grid2";
 
 import profile from "../../assets/img/faces/christian.jpg";
 
@@ -33,6 +39,50 @@ import work5 from "../../assets/img/examples/clem-onojegaw.jpg";
 import profilePageStyle from "../../assets/jss/material-kit-react/views/profilePage.jsx";
 
 class ProfilePage extends React.Component {
+    state = {
+    recipes: [],
+    title: "",
+    chef: "",
+    ingredients: ""
+  };
+
+  componentDidMount() {
+    this.loadRec();
+  }
+
+  loadRec = () => {
+    API.getRec()
+      .then(res =>
+        this.setState({ books: res.data, title: "", author: "", synopsis: "" })
+      )
+      .catch(err => console.log(err));
+  };
+
+  deleteBook = id => {
+    API.deleteRecipe(id)
+      .then(res => this.loadBooks())
+      .catch(err => console.log(err));
+  };
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+    if (this.state.title && this.state.author) {
+      API.saveRecipe({
+        title: this.state.title,
+        author: this.state.chef,
+        synopsis: this.state.synopsis
+      })
+        .then(res => this.loadBooks())
+        .catch(err => console.log(err));
+    }
+  };
   render() {
     const { classes, ...rest } = this.props;
     const imageClasses = classNames(
@@ -77,6 +127,62 @@ class ProfilePage extends React.Component {
                   it a warm, intimate feel with a solid groove structure.{" "}
                 </p>
               </div>
+                    <Container fluid>
+        <Row>
+          <Col size="md-6">
+            <Jumbotron>
+              <h1>Add your own Recipes!</h1>
+            </Jumbotron>
+            <form>
+              <Input
+                value={this.state.title}
+                onChange={this.handleInputChange}
+                name="title"
+                placeholder="Title (required)"
+              />
+              <Input
+                value={this.state.chef}
+                onChange={this.handleInputChange}
+                name="chef"
+                placeholder="Chef (required)"
+              />
+              <TextArea
+                value={this.state.ingredients}
+                onChange={this.handleInputChange}
+                name="ingredients"
+                placeholder="ingredients (Optional)"
+              />
+              <FormBtn
+                disabled={!(this.state.chef && this.state.title)}
+                onClick={this.handleFormSubmit}
+              >
+                Submit Book
+              </FormBtn>
+            </form>
+          </Col>
+          <Col size="md-6 sm-12">
+            <Jumbotron>
+              <h1>Recipes On My List</h1>
+            </Jumbotron>
+            {this.state.recipes.length ? (
+              <List>
+                {this.state.recipes.map(book => (
+                  <ListItem key={recipe._id}>
+                    <Link to={"/recipes/" + recipe._id}>
+                      <strong>
+                        {recipe.title} by {recipe.chef}
+                      </strong>
+                    </Link>
+                    <DeleteBtn onClick={() => this.deleteBook(recipe._id)} />
+                  </ListItem>
+                ))}
+              </List>
+            ) : (
+              <h3>No Results to Display</h3>
+            )}
+          </Col>
+        </Row>
+      </Container>
               <GridContainer justify="center">
                 <GridItem xs={12} sm={12} md={8} className={classes.navWrapper}>
                   <NavPills alignCenter color="primary" tabs={[{ tabButton: "Studio", tabIcon: Camera, tabContent: <GridContainer justify="center">
