@@ -26,8 +26,7 @@ function CustomInput({ ...props }) {
     error,
     white,
     inputRootCustomClasses,
-    success
-  } = props;
+    success} = props;
 
   const labelClasses = classNames({
     [" " + classes.labelRootError]: error,
@@ -83,6 +82,7 @@ function CustomInput({ ...props }) {
 }
 
 CustomInput.propTypes = {
+  onChange: PropTypes.func,
   classes: PropTypes.object.isRequired,
   labelText: PropTypes.node,
   labelProps: PropTypes.object,
