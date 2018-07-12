@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // @material-ui/core components
@@ -37,6 +38,8 @@ import work4 from "../../assets/img/examples/mariya-georgieva.jpg";
 import work5 from "../../assets/img/examples/clem-onojegaw.jpg";
 
 import profilePageStyle from "../../assets/jss/material-kit-react/views/profilePage.jsx";
+import API from "../../utils/API";
+
 
 class ProfilePage extends React.Component {
     state = {
@@ -166,7 +169,7 @@ class ProfilePage extends React.Component {
             </Jumbotron>
             {this.state.recipes.length ? (
               <List>
-                {this.state.recipes.map(book => (
+                {this.state.recipes.map(recipe => (
                   <ListItem key={recipe._id}>
                     <Link to={"/recipes/" + recipe._id}>
                       <strong>
