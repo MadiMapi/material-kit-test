@@ -42,21 +42,26 @@ import API from "../../utils/API";
 
 
 class ProfilePage extends React.Component {
-    state = {
+  state = {
     recipes: [],
     title: "",
     chef: "",
     ingredients: ""
   };
 
-  componentDidMount() {
-    this.loadRec();
-  }
+  // componentDidMount() {
+  //   this.loadRec();
+  // }
 
   loadRec = () => {
     API.getRec()
       .then(res =>
-        this.setState({ recipes: res.data, title: "", chef: "", ingredients: "" })
+        this.setState({
+          recipes: res.data,
+          title: "",
+          chef: "",
+          ingredients: ""
+        })
       )
       .catch(err => console.log(err));
   };
@@ -94,9 +99,21 @@ class ProfilePage extends React.Component {
       classes.imgFluid
     );
     const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
-    return <div>
-        <Header color="transparent" brand="Casual Chef" rightLinks={<HeaderLinks />} fixed changeColorOnScroll={{ height: 200, color: "white" }} {...rest} />
-        <Parallax small filter image={require("../../assets/img/profile-bg.jpg")} />
+    return (
+      <div>
+        <Header
+          color="transparent"
+          brand="Casual Chef"
+          rightLinks={<HeaderLinks />}
+          fixed
+          changeColorOnScroll={{ height: 200, color: "white" }}
+          {...rest}
+        />
+        <Parallax
+          small
+          filter
+          image={require("../../assets/img/profile-bg.jpg")}
+        />
         <div className={classNames(classes.main, classes.mainRaised)}>
           <div>
             <div className={classes.container}>
@@ -124,108 +141,193 @@ class ProfilePage extends React.Component {
               </GridContainer>
               <div className={classes.description}>
                 <p>
-                  An artist of considerable range, Chet Faker — the name
-                  taken by Melbourne-raised, Brooklyn-based Nick Murphy —
-                  writes, performs and records all of his own music, giving
-                  it a warm, intimate feel with a solid groove structure.{" "}
+                  An artist of considerable range, Chet Faker — the name taken
+                  by Melbourne-raised, Brooklyn-based Nick Murphy — writes,
+                  performs and records all of his own music, giving it a warm,
+                  intimate feel with a solid groove structure.{" "}
                 </p>
               </div>
-                    <Container>
-        <Row>
-          <Col size="md-6">
-            <Jumbotron>
-              <h1>Add your own Recipes!</h1>
-            </Jumbotron>
-            <form>
-              <Input
-                value={this.state.title}
-                onChange={this.handleInputChange}
-                name="title"
-                placeholder="Title (required)"
-              />
-              <Input
-                value={this.state.chef}
-                onChange={this.handleInputChange}
-                name="chef"
-                placeholder="Chef (required)"
-              />
-              <TextArea
-                value={this.state.ingredients}
-                onChange={this.handleInputChange}
-                name="ingredients"
-                placeholder="ingredients (Optional)"
-              />
-              <FormBtn
-              type="submit"
-                disabled={!(this.state.chef && this.state.title)}
-                onClick={this.handleFormSubmit}
-              >
-                Submit Book
-              </FormBtn>
-            </form>
-          </Col>
-          <Col size="md-6 sm-12">
-            <Jumbotron>
-              <h1>Recipes On My List</h1>
-            </Jumbotron>
-            {this.state.recipes.length ? (
-              <List>
-                {this.state.recipes.map(recipe => (
-                  <ListItem key={recipe._id}>
-                    <Link to={"/recipes/" + recipe._id}>
-                      <strong>
-                        {recipe.title} by {recipe.chef}
-                      </strong>
-                    </Link>
-                    <DeleteBtn onClick={() => this.deleteRecipe(recipe._id)} />
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-              <h3>No Results to Display</h3>
-            )}
-          </Col>
-        </Row>
-      </Container>
+              <Container>
+                <Row>
+                  <Col size="md-6">
+                    <Jumbotron>
+                      <h1>Add your own Recipes!</h1>
+                    </Jumbotron>
+                    <form>
+                      <Input
+                        value={this.state.title}
+                        onChange={this.handleInputChange}
+                        name="title"
+                        placeholder="Title (required)"
+                      />
+                      <Input
+                        value={this.state.chef}
+                        onChange={this.handleInputChange}
+                        name="chef"
+                        placeholder="Chef (required)"
+                      />
+                      <TextArea
+                        value={this.state.ingredients}
+                        onChange={this.handleInputChange}
+                        name="ingredients"
+                        placeholder="ingredients (Optional)"
+                      />
+                      <FormBtn
+                        type="submit"
+                        disabled={!(this.state.chef && this.state.title)}
+                        onClick={this.handleFormSubmit}
+                      >
+                        Submit Book
+                      </FormBtn>
+                    </form>
+                  </Col>
+                  <Col size="md-6 sm-12">
+                    <Jumbotron>
+                      <h1>Recipes On My List</h1>
+                    </Jumbotron>
+                    {this.state.recipes.length ? (
+                      <List>
+                        {this.state.recipes.map(recipe => (
+                          <ListItem key={recipe._id}>
+                            <Link to={"/recipes/" + recipe._id}>
+                              <strong>
+                                {recipe.title} by {recipe.chef}
+                              </strong>
+                            </Link>
+                            <DeleteBtn
+                              onClick={() => this.deleteRecipe(recipe._id)}
+                            />
+                          </ListItem>
+                        ))}
+                      </List>
+                    ) : (
+                      <h3>No Results to Display</h3>
+                    )}
+                  </Col>
+                </Row>
+              </Container>
               <GridContainer justify="center">
                 <GridItem xs={12} sm={12} md={8} className={classes.navWrapper}>
-                  <NavPills alignCenter color="primary" tabs={[{ tabButton: "Studio", tabIcon: Camera, tabContent: <GridContainer justify="center">
+                  <NavPills
+                    alignCenter
+                    color="primary"
+                    tabs={[
+                      {
+                        tabButton: "Studio",
+                        tabIcon: Camera,
+                        tabContent: (
+                          <GridContainer justify="center">
                             <GridItem xs={12} sm={12} md={4}>
-                              <img alt="..." src={studio1} className={navImageClasses} />
-                              <img alt="..." src={studio2} className={navImageClasses} />
+                              <img
+                                alt="..."
+                                src={studio1}
+                                className={navImageClasses}
+                              />
+                              <img
+                                alt="..."
+                                src={studio2}
+                                className={navImageClasses}
+                              />
                             </GridItem>
                             <GridItem xs={12} sm={12} md={4}>
-                              <img alt="..." src={studio5} className={navImageClasses} />
-                              <img alt="..." src={studio4} className={navImageClasses} />
+                              <img
+                                alt="..."
+                                src={studio5}
+                                className={navImageClasses}
+                              />
+                              <img
+                                alt="..."
+                                src={studio4}
+                                className={navImageClasses}
+                              />
                             </GridItem>
-                          </GridContainer> }, { tabButton: "Work", tabIcon: Palette, tabContent: <GridContainer justify="center">
+                          </GridContainer>
+                        )
+                      },
+                      {
+                        tabButton: "Work",
+                        tabIcon: Palette,
+                        tabContent: (
+                          <GridContainer justify="center">
                             <GridItem xs={12} sm={12} md={4}>
-                              <img alt="..." src={work1} className={navImageClasses} />
-                              <img alt="..." src={work2} className={navImageClasses} />
-                              <img alt="..." src={work3} className={navImageClasses} />
+                              <img
+                                alt="..."
+                                src={work1}
+                                className={navImageClasses}
+                              />
+                              <img
+                                alt="..."
+                                src={work2}
+                                className={navImageClasses}
+                              />
+                              <img
+                                alt="..."
+                                src={work3}
+                                className={navImageClasses}
+                              />
                             </GridItem>
                             <GridItem xs={12} sm={12} md={4}>
-                              <img alt="..." src={work4} className={navImageClasses} />
-                              <img alt="..." src={work5} className={navImageClasses} />
+                              <img
+                                alt="..."
+                                src={work4}
+                                className={navImageClasses}
+                              />
+                              <img
+                                alt="..."
+                                src={work5}
+                                className={navImageClasses}
+                              />
                             </GridItem>
-                          </GridContainer> }, { tabButton: "Favorite", tabIcon: Favorite, tabContent: <GridContainer justify="center">
+                          </GridContainer>
+                        )
+                      },
+                      {
+                        tabButton: "Favorite",
+                        tabIcon: Favorite,
+                        tabContent: (
+                          <GridContainer justify="center">
                             <GridItem xs={12} sm={12} md={4}>
-                              <img alt="..." src={work4} className={navImageClasses} />
-                              <img alt="..." src={studio3} className={navImageClasses} />
+                              <img
+                                alt="..."
+                                src={work4}
+                                className={navImageClasses}
+                              />
+                              <img
+                                alt="..."
+                                src={studio3}
+                                className={navImageClasses}
+                              />
                             </GridItem>
                             <GridItem xs={12} sm={12} md={4}>
-                              <img alt="..." src={work2} className={navImageClasses} />
-                              <img alt="..." src={work1} className={navImageClasses} />
-                              <img alt="..." src={studio1} className={navImageClasses} />
+                              <img
+                                alt="..."
+                                src={work2}
+                                className={navImageClasses}
+                              />
+                              <img
+                                alt="..."
+                                src={work1}
+                                className={navImageClasses}
+                              />
+                              <img
+                                alt="..."
+                                src={studio1}
+                                className={navImageClasses}
+                              />
                             </GridItem>
-                          </GridContainer> }]} />
+                          </GridContainer>
+                        )
+                      }
+                    ]}
+                  />
                 </GridItem>
               </GridContainer>
             </div>
           </div>
         </div>
         <Footer />
-      </div>;
+      </div>
+    );
   }
 }
 
