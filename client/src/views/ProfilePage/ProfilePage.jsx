@@ -56,14 +56,14 @@ class ProfilePage extends React.Component {
   loadRec = () => {
     API.getRec()
       .then(res =>
-        this.setState({ books: res.data, title: "", author: "", synopsis: "" })
+        this.setState({ recipes: res.data, title: "", chef: "", ingredients: "" })
       )
       .catch(err => console.log(err));
   };
 
-  deleteBook = id => {
+  deleteRecipe = id => {
     API.deleteRecipe(id)
-      .then(res => this.loadBooks())
+      .then(res => this.loadRec())
       .catch(err => console.log(err));
   };
 
@@ -76,13 +76,13 @@ class ProfilePage extends React.Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.title && this.state.author) {
+    if (this.state.title && this.state.chef) {
       API.saveRecipe({
         title: this.state.title,
-        author: this.state.chef,
-        synopsis: this.state.synopsis
+        chef: this.state.chef,
+        ingredients: this.state.ingredients
       })
-        .then(res => this.loadBooks())
+        .then(res => this.loadRec())
         .catch(err => console.log(err));
     }
   };
@@ -130,7 +130,7 @@ class ProfilePage extends React.Component {
                   it a warm, intimate feel with a solid groove structure.{" "}
                 </p>
               </div>
-                    <Container fluid>
+                    <Container>
         <Row>
           <Col size="md-6">
             <Jumbotron>
@@ -156,6 +156,7 @@ class ProfilePage extends React.Component {
                 placeholder="ingredients (Optional)"
               />
               <FormBtn
+              type="submit"
                 disabled={!(this.state.chef && this.state.title)}
                 onClick={this.handleFormSubmit}
               >
@@ -176,7 +177,7 @@ class ProfilePage extends React.Component {
                         {recipe.title} by {recipe.chef}
                       </strong>
                     </Link>
-                    <DeleteBtn onClick={() => this.deleteBook(recipe._id)} />
+                    <DeleteBtn onClick={() => this.deleteRecipe(recipe._id)} />
                   </ListItem>
                 ))}
               </List>

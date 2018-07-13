@@ -2,7 +2,7 @@ const router = require("express").Router();
 const recipesController = require("../../controllers/recipesController");
 
 // Matches with "/api/books"
-router.route("/profile-page")
+router.route("/")
   .get(recipesController.findAll)
   .post(recipesController.create);
 

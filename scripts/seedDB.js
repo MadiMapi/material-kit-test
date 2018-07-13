@@ -5,13 +5,19 @@ mongoose.Promise = global.Promise;
 // This file empties the Books collection and inserts the books below
 
 mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://mpina:pineapple2018@ds17351.mlab.com:17351/heroku_sbrnnnf0",
+  process.env.MONGODB_URI || "mongodb://mpina:pineapple2018@ds217351.mlab.com:17351/heroku_sbrnnnf0",
   {
     useMongoClient: true
   }
 );
 
 const recipeSeed = [
+    {
+    title: "Chicken",
+    chef: "Stephen King",
+    ingredients:
+      "onions, carrots"
+  }
 ];
 
 db.Recipe
