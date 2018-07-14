@@ -19,7 +19,6 @@ import landingPageStyle from "../../assets/jss/material-kit-react/views/landingP
 
 // Sections for this page
 import TeamSection from "./Sections/TeamSection.jsx";
-import WorkSection from "./Sections/WorkSection.jsx";
 
 const dashboardRoutes = [];
 
@@ -52,7 +51,6 @@ class LandingPage extends React.Component {
         </Parallax>
         <div className={classNames(classes.main, classes.mainRaised)}>
           <div className={classes.container}>
-            <WorkSection />
             <TeamSection />
           </div>
         </div>
