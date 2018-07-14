@@ -42,8 +42,8 @@ class LandingPage extends React.Component {
                   shopping list.
                 </h4>
                 <br />
-                <Button color="success" size="lg" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer">
-                  <i className="fas fa-play" />Let's get cookin'
+                <Button color="success" size="lg" href="/signup-page" target="_blank" rel="noopener noreferrer">
+                  Let's get cookin'
                 </Button>
               </GridItem>
             </GridContainer>
